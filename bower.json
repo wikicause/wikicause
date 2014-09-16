@@ -18,5 +18,13 @@
     "bower_components",
     "test",
     "tests"
-  ]
+  ],
+  "dependencies": {
+    "bootstrap": "~3.2.0",
+    "d3": "~3.4.11",
+    "fontawesome": "~4.1.0",
+    "html5-boilerplate": "~4.3.0",
+    "jquery": "~2.1.1",
+    "moment": "~2.8.2"
+  }
 }
