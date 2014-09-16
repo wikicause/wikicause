@@ -1,0 +1,14 @@
+{
+  "name": "wikicause",
+  "version": "0.0.1",
+  "authors": [
+    "Trevor Starick <trevor.starick@gmail.com>"
+  ],
+  "description": "Plot the causality of events past, present and future.",
+  "main": "index.js",
+  "keywords": [
+    "wiki"
+  ],
+  "license": "MIT",
+  "homepage": "http://wikicause.org",
+}
