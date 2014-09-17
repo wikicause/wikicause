@@ -50,7 +50,7 @@ gulp.task('watch', function() {
 
 gulp.task("bower", function() {
   return gulp.src(mainBowerFiles( /* options */ ))
-    .pipe(gulp.dest("./vendor"));
+    .pipe(gulp.dest("./app/public/vendor"));
 });
 
 // The default task (called when you run `gulp` from cli)

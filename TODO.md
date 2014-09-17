@@ -10,4 +10,4 @@ TODO
 
 - [ ] Database chosen
 - [ ] Front End MVC chosen
-- [ ] File structure chosen
+- [x] File structure chosen
