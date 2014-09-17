@@ -9,5 +9,5 @@ TODO
 
 
 - [ ] Database chosen
-- [ ] Front End MVC chosen
+- [x] Front End MVC chosen	(AngularJS)
 - [x] File structure chosen
