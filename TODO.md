@@ -5,7 +5,7 @@ TODO
 
 
 - [ ] Front End designed
-- [ ] Logo designed
+- [x] Logo designed
 
 
 - [x] Database chosen	(MongoDB for Data, Redis/Level for cache)
