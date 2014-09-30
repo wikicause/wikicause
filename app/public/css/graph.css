@@ -1,0 +1,27 @@
+#paths {
+	stroke: #151515;
+	stroke-width: 4px;
+	fill: transparent;
+}
+#nodes>.one {
+	fill: #f00;
+}
+#nodes>.two {
+	fill: #0f0;
+}
+#nodes>.three {
+	fill: #00f;
+}
+
+.g0 {
+  fill: #ac4142;
+}
+.g1 {
+  fill: #f4bf75;
+}
+.g2 {
+  fill: #90a959;
+}
+.g3 {
+  fill: #6a9fb5;
+}
