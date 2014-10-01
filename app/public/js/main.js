@@ -18,8 +18,6 @@ function bezCurve(s, e) {
   c = (coords[0][0] + coords[1][0]) / 2;
   d = coords[1][1];
 
-  console.log(a,b,c,d);
-
   z += 'M';
   z += coords[0][0] + ' ' + coords[0][1];
 
@@ -49,8 +47,6 @@ function plotPaths(n) {
 	        s = [x,y];
 	        e = [(i*100)+125,y+50];
 
-	        console.log(s,e);
-
     		svg += '\t<path d="'+bezCurve(s,e)+'" />\n';
 
     	} else if(c !== 'ff') {
@@ -67,16 +63,12 @@ function plotPaths(n) {
 	        	e = [(i*100)+125,((q-1)*50)+25];
 	        }
 
-	        console.log(s,e);
-
     		svg += '\t<path d="'+bezCurve(s,e)+'" />\n';
     	}
     });
   });
 
   svg += '</g>\n';
-
-  console.log(svg);
 
   return svg;
 }
@@ -88,15 +80,15 @@ function plotNodes(n) {
     var q = i;
     r.forEach(function(c, i) {
       if (c !== 'ff') {
-      	console.log(c[0]);
-
         var x = i * 100;
         var y = q * 50;
 
         x += 25;
         y += 25;
 
-      	var p = '<circle cx="' + x + '" cy="' + y + '" r="15"/>';
+      	var p = '<a xlink:href="#'+c+'" data-toggle="tooltip" title="foo">';
+        p += '<circle cx="' + x + '" cy="' + y + '" r="15">';
+        p += '</circle></a>';
 
         if(!groups[c[0]]) {
       		groups[c[0]] = [p];
@@ -106,7 +98,7 @@ function plotNodes(n) {
       }
     });
   });
-  
+
   var svg = '';
 
   Object.keys(groups).forEach(function(e) {
@@ -114,8 +106,6 @@ function plotNodes(n) {
   	svg += groups[e].join('\n\t');
   	svg += '\n</g>\n';
   });
-
-  console.log(svg);
 
   return svg;
 }
@@ -129,7 +119,6 @@ function go() {
   svg += plotNodes(n);
   svg += '</svg>';
 
-  console.log(svg);
   $('.graph').append(svg);
 }
 

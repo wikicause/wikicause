@@ -51,6 +51,22 @@ header>h1 {
 	/*height: 315px;*/
 }
 
+g>a {
+	fill: inherit;
+}
+
+.tooltip {
+	/*position: absolute;*/
+}
+
+circle>title {
+	color: #fff;
+}
+
+circle:hover {
+	fill: #fff;
+}
+
 .contribute {
 	height: 16px;
 	width: 16px;
