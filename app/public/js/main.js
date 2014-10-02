@@ -75,9 +75,11 @@ function plotPaths(n) {
 
 function plotNodes(n) {
   var groups = {};
+  var tt = '';
 
   n.forEach(function(r, i) {
     var q = i;
+
     r.forEach(function(c, i) {
       if (c !== 'ff') {
         var x = i * 100;
@@ -86,10 +88,18 @@ function plotNodes(n) {
         x += 25;
         y += 25;
 
-        var p = '<a xlink:href="#' + c + '" data-toggle="tooltip" title="foo">';
-        p += '<circle cx="' + x + '" cy="' + y + '" r="15">';
+        var p = '<a xlink:href="#' + c + '">';
+        
+        p += '<circle id="' + c + '"cx="' + x + '" cy="' + y + '" r="15">';
         p += '</circle></a>';
-        p += '<text x="'+x+'" y="'+(y+15)+'">Foo</text>';
+
+        tt += '<foreignObject x="' + x +'" y="' + y +'" width="100%" height="100%">';
+        tt += '<div id=' + c + ' class="info">';
+        tt += '#'+c+' &middot; '+'['+x+','+y+']';
+        tt += '</div>';
+        tt += '</foreignObject>';
+        
+        // p += '<text x="'+x+'" y="'+(y+15)+'">Foo</text>';
 
         if (!groups[c[0]]) {
           groups[c[0]] = [p];
@@ -108,6 +118,8 @@ function plotNodes(n) {
     svg += '\n</g>\n';
   });
 
+  svg += tt;
+
   return svg;
 }
 
@@ -123,9 +135,8 @@ function go() {
   $('.graph').append(svg);
 
   $('circle').hover(function(e) {
-    console.log(e);
-    var t = e.target;
-    console.log(t.cx.baseVal.value, t.cy.baseVal.value);
+    console.log(e.target.id);
+    $('#'+e.target.id+'.info').toggle();
   });
 }
 

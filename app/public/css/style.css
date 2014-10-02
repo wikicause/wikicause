@@ -55,8 +55,15 @@ g>a {
 	fill: inherit;
 }
 
-.tooltip {
+.info {
 	/*position: absolute;*/
+	display: none;
+	background: #fff;
+	border: 2px solid #f00;
+	width: 200px;
+	height: 100px;
+	border-radius: 15px;
+	padding: 10px;
 }
 
 circle>title {
