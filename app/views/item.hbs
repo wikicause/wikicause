@@ -1,19 +1,50 @@
 <section id="content">
-    <p><strong>form</strong></p>
     <form>
+        <p><strong>Title</strong></p>
         <div class="form-group">
-            <input class="form-control" type="text" placeholder="input.form-control">
+            <input class="form-control" type="text" placeholder="[title]">
         </div>
         <div class="form-group">
-            <input class="form-control" type="text" placeholder="input.form-control">
-        </div>
-
-        <div class="form-group">
-            <textarea class="form-control" rows="3">textarea.form-control</textarea>
+            <input class="form-control" type="text" placeholder="[subtitle]">
         </div>
 
+        <hr />
+        <p><strong>Timeline</strong></p>
+
         <div class="form-group">
-            <button class="btn btn-default" type="submit">Submit</button>
+            <div class="form-group">
+                <div class="charCount" style="position:relative">
+                    <textarea class="form-control" type="text" placeholder="[Lorem ipsum dolor sit amet, consectetur adipisicing elit.]" maxlength="140" rows="2" style="resize: none;"></textarea>
+                    <span class="count" style="position:absolute;right:10px;bottom:0px;">140</count>
+                </div>
+
+                <input class="form-control" type="text" placeholder="[citation needed]">
+            </div>
+
+            <button class="btn btn-default" type="submit">Save</button>
+            <button class="btn btn-default" type="submit">Publish</button>
+
+            <script>
+            $("textarea[maxlength]").each(function() {
+                var $this = $(this);
+                var maxLength = parseInt($this.attr('maxlength'));
+                $this.attr('maxlength', null);
+                
+                var el = $(".charCount>.count");
+                
+                $this.bind('keyup', function() {
+                    var cc = $this.val().length;
+                    
+                    el.text(maxLength - cc);
+                    
+                    if(maxLength < cc) {
+                        el.css('color', 'red');
+                    } else {
+                        el.css('color', 'black');
+                    }
+                });
+            });
+            </script>
         </div>
     </form>
 </section>
