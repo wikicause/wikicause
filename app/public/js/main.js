@@ -34,37 +34,37 @@ function plotPaths(n) {
   n.forEach(function(r, i) {
     var q = i;
     r.forEach(function(c, i) {
-    	var x,y,s,e;
+      var x, y, s, e;
 
-    	if(c == 'ff' && r[i+1] !== 'ff') {
+      if (c == 'ff' && r[i + 1] !== 'ff') {
 
-    		x = i * 100;
-	        y = (q*50)-50;
+        x = i * 100;
+        y = (q * 50) - 50;
 
-	        x += 25;
-	        y += 25;
+        x += 25;
+        y += 25;
 
-	        s = [x,y];
-	        e = [(i*100)+125,y+50];
+        s = [x, y];
+        e = [(i * 100) + 125, y + 50];
 
-    		svg += '\t<path d="'+bezCurve(s,e)+'" />\n';
+        svg += '\t<path d="' + bezCurve(s, e) + '" />\n';
 
-    	} else if(c !== 'ff') {
-    		x = i * 100;
-	        y = q * 50;
+      } else if (c !== 'ff') {
+        x = i * 100;
+        y = q * 50;
 
-	        x += 25;
-	        y += 25;
+        x += 25;
+        y += 25;
 
-	        s = [x,y];
-	        e = [(i*100)+125,y];
+        s = [x, y];
+        e = [(i * 100) + 125, y];
 
-	        if(r[i+1] === 'ff') {
-	        	e = [(i*100)+125,((q-1)*50)+25];
-	        }
+        if (r[i + 1] === 'ff') {
+          e = [(i * 100) + 125, ((q - 1) * 50) + 25];
+        }
 
-    		svg += '\t<path d="'+bezCurve(s,e)+'" />\n';
-    	}
+        svg += '\t<path d="' + bezCurve(s, e) + '" />\n';
+      }
     });
   });
 
@@ -86,15 +86,16 @@ function plotNodes(n) {
         x += 25;
         y += 25;
 
-      	var p = '<a xlink:href="#'+c+'" data-toggle="tooltip" title="foo">';
+        var p = '<a xlink:href="#' + c + '" data-toggle="tooltip" title="foo">';
         p += '<circle cx="' + x + '" cy="' + y + '" r="15">';
         p += '</circle></a>';
+        p += '<text x="'+x+'" y="'+(y+15)+'">Foo</text>';
 
-        if(!groups[c[0]]) {
-      		groups[c[0]] = [p];
-      	} else {
-      		groups[c[0]].push(p);
-      	}
+        if (!groups[c[0]]) {
+          groups[c[0]] = [p];
+        } else {
+          groups[c[0]].push(p);
+        }
       }
     });
   });
@@ -102,9 +103,9 @@ function plotNodes(n) {
   var svg = '';
 
   Object.keys(groups).forEach(function(e) {
-  	svg += '<g class="g'+e+'">\n\t';
-  	svg += groups[e].join('\n\t');
-  	svg += '\n</g>\n';
+    svg += '<g class="g' + e + '">\n\t';
+    svg += groups[e].join('\n\t');
+    svg += '\n</g>\n';
   });
 
   return svg;
@@ -120,6 +121,12 @@ function go() {
   svg += '</svg>';
 
   $('.graph').append(svg);
+
+  $('circle').hover(function(e) {
+    console.log(e);
+    var t = e.target;
+    console.log(t.cx.baseVal.value, t.cy.baseVal.value);
+  });
 }
 
 go();
