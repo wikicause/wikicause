@@ -2,7 +2,11 @@ var express = require('express');
 var logger = require('morgan');
 var hbs = require('express-hbs');
 
+var bodyParser = require('body-parser');
+
 var fs = require('fs');
+
+var api = require(__dirname+'/routes/api');
 
 // var routes = require('./routes');
 var app = express();
@@ -12,10 +16,14 @@ app.engine('hbs', hbs.express3({
   // partialsDir: __dirname + '/views/partials',
   defaultLayout: __dirname + '/views/layout.hbs'
 }));
+
 app.set('view engine', 'hbs');
 app.set('views', __dirname + '/views');
 
 app.use(express.static(__dirname + '/public'));
+app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use('/api', api);
 
 app.get('/', function(req, res) {
   res.render('index');
