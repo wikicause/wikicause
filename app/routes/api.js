@@ -1,11 +1,31 @@
 var express = require('express');
+var mongoose = require('mongoose');
+var async = require('async');
+var _ = require('lodash');
+// mongoose.set('debug', true);
+
+mongoose.connect('mongodb://localhost/wikicause');
+
+var ObjectId = mongoose.Schema.Types.ObjectId;
+var Id = mongoose.Types.ObjectId;
+
+var Leafs = mongoose.model('leafs', {});
+var Events = mongoose.model('events', {});
+var Users = mongoose.model('users', {});
+var Cache = mongoose.model('cache', {});
+
 var api = express.Router();
 
-api.post('/new', function(req,res) {
-	console.log(req.body);
-	var resp = req.body;
-	resp.status = 'OK';
-	res.status(200).send(resp);
+api.get('/', function(req, res) {
+  res.send('woo');
+});
+
+api.get('/list', function(req, res) {
+  Leafs.find({}, {
+    children: 1
+  }, function(err, data) {
+    res.json(data);
+  });
 });
 
 module.exports = api;
