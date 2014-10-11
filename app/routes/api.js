@@ -20,6 +20,17 @@ api.get('/', function(req, res) {
   res.send('woo');
 });
 
+
+api.get('/new', function(req,res) {
+	res.send('POST requests only');
+});
+
+api.post('/new', function(req,res) {
+	console.log(req.body);
+
+	res.send(200);
+});
+
 api.get('/list', function(req, res) {
   Leafs.find({}, {
     children: 1
