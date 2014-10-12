@@ -11,6 +11,9 @@
     transition: border-color ease-in-out .15s;
     position: relative;
     margin-bottom: 15px;
+    margin-left: 5px;
+    margin-right: 5px;
+    display: inline-block;
 }
 
 .timelineItem>ul {
@@ -86,32 +89,54 @@ input:focus {
 
 {{#contentFor "scripts"}}
 <script>
-var timelineItem = '';
 var prevTarget = {};
+var width = 100;
 
-timelineItem += '<div class="timelineItem">';
-timelineItem += '    <ul class="fa-ul">';
-timelineItem += '        <li><a href="#" onClick="timeline.newItem()" class="fa-li fa fa-plus"></a>&nbsp;</li>';
-timelineItem += '        <li><a href="#" onClick="timeline.forkItem()" class="fa-li fa fa-code-fork fa-rotate-90"></a>&nbsp;</li>';
-timelineItem += '        <li><a href="#" onClick="timeline.mergeItem()" class="fa-li fa fa-code-fork" style="transform: scale(-1, 1) rotate(90deg);"></a>&nbsp;</li>';
-timelineItem += '        <li><a href="#" onClick="timeline.deleteItem(this)" class="fa-li fa fa-minus"></a>&nbsp;</li>';
-timelineItem += '    </ul>';
-timelineItem += '    <textarea placeholder="foo" maxlength="140"></textarea>';
-timelineItem += '</div>';
+function timelineGen(parent, type) {
+    // var width = parent.width/2;
+    var width = 100;
+    if(type === 'fork') width = width/2;
+    
+    var timelineItem = '';
+    
+    timelineItem += '<div class="timelineItem" style="width: calc('+width+'% - 10px)">';
+    timelineItem += '    <ul class="fa-ul">';
+    timelineItem += '        <li><a href="#" onClick="timeline.newItem(this)" class="fa-li fa fa-plus"></a>&nbsp;</li>';
+    timelineItem += '        <li><a href="#" onClick="timeline.forkItem(this)" class="fa-li fa fa-code-fork fa-rotate-90"></a>&nbsp;</li>';
+    timelineItem += '        <li><a href="#" onClick="timeline.mergeItem(this)" class="fa-li fa fa-code-fork" style="transform: scale(-1, 1) rotate(90deg);"></a>&nbsp;</li>';
+    timelineItem += '        <li><a href="#" onClick="timeline.deleteItem(this)" class="fa-li fa fa-minus"></a>&nbsp;</li>';
+    timelineItem += '    </ul>';
+    timelineItem += '    <textarea placeholder="foo" maxlength="140" name="item"></textarea>';
+    timelineItem += '</div>';
+
+    return timelineItem;
+
+}   
+
+// Check if previous item is fork
+// if true:
+//      create item with x% width
+// else:
+//      create normal item
+// if merged:
+//      set g_var true
+
+var forked = false;
 
 var timeline = {
-    newItem: function() {
-        $('#timelineDatum').append(timelineItem);
+    newItem: function(item) {
+        $('#timelineDatum').append(timelineGen(item,'new'));
     },
-    forkItem: function() {
-        $('#timelineDatum').append(timelineItem);
+    forkItem: function(item) {
+        console.log($(item).parents()[2]);
+        $('#timelineDatum').append(timelineGen('fork'));
     },
-    mergeItem: function() {
-        $('#timelineDatum').append(timelineItem);
+    mergeItem: function(item) {
+        $('#timelineDatum').append(timelineGen('merge'));
     },
     deleteItem: function(item) {
         if($('.timelineItem:visible').length > 1) {
-            $(item).parent().parent().parent().hide();
+            $(item).parent().parent().parent().remove();
         }
     }
 };
@@ -139,9 +164,8 @@ $("textarea[maxlength]").each(function() {
 });
 
 $("#post").click(function(e) {
-    console.log($('form'));
     var f = $('form').serialize();
-    console.log(f);
+    console.log(f, $('form'));
     $.post('/api/new', f, function(r) {
         // console.log(r);
     });
